@@ -1,0 +1,37 @@
+From 897c81c68e423cd5983b3c868af6cae9a99cc454 Mon Sep 17 00:00:00 2001
+From: "Simental Magana, Marcos" <marcos.simental.magana@intel.com>
+Date: Thu, 14 Feb 2019 11:22:00 -0600
+Subject: [PATCH] add build install makefile targets
+
+---
+ Makefile | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/Makefile b/Makefile
+index 4c4476c..c33afac 100644
+--- a/Makefile
++++ b/Makefile
+@@ -12,6 +12,20 @@
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ 
++FONTNAME = roboto
++PREFIX ?= /usr
++FONTDIR ?= $(DESTDIR)$(PREFIX)/share/fonts
++
++
++.PHONY: build
++build:
++	@echo "nothing to do"
++
++.PHONY: install
++install:
++	mkdir -p $(FONTDIR)/$(FONTNAME)
++	install -m 0644 ./src/hinted/*.ttf $(FONTDIR)/$(FONTNAME)
++
+ all: v2
+ 
+ v2:
+-- 
+2.20.1
+
