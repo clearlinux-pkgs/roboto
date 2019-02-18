@@ -4,7 +4,7 @@
 #
 Name     : roboto
 Version  : 2.138
-Release  : 1
+Release  : 2
 URL      : https://github.com/google/roboto/archive/v2.138.tar.gz
 Source0  : https://github.com/google/roboto/archive/v2.138.tar.gz
 Summary  : No detailed summary available
@@ -12,19 +12,15 @@ Group    : Development/Tools
 License  : Apache-2.0 GPL-2.0
 Requires: roboto-data = %{version}-%{release}
 Requires: roboto-license = %{version}-%{release}
-Requires: Cython
-Requires: fonttools
-Requires: numpy
-Requires: scipy
 BuildRequires : fonttools
 Patch1: 0001-add-build-install-makefile-targets.patch
 
 %description
-Spiro release 0.01
-4 May 2007
-Raph Levien
-This is a very rough release of the Spiro toolset that I've been using
-to create my fonts. The main program is ppedit, and there's a more
+# Fontcrunch
+By Raph Levien, Google
+This is a tool for TrueType font spline optimization - a "simplify" command.
+It tries to create a visual match for the spline using the smallest number of TrueType points.
+It is notable for counting on-curve points interpolated between two off-curve points as "free," making useful filesize savings.
 
 %package data
 Summary: data components for the roboto package.
@@ -51,12 +47,12 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1550165345
+export SOURCE_DATE_EPOCH=1550452923
 make  %{?_smp_mflags}
 
 
 %install
-export SOURCE_DATE_EPOCH=1550165345
+export SOURCE_DATE_EPOCH=1550452923
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/roboto
 cp LICENSE %{buildroot}/usr/share/package-licenses/roboto/LICENSE
