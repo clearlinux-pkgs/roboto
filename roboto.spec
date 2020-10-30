@@ -4,7 +4,7 @@
 #
 Name     : roboto
 Version  : 2.138
-Release  : 2
+Release  : 3
 URL      : https://github.com/google/roboto/archive/v2.138.tar.gz
 Source0  : https://github.com/google/roboto/archive/v2.138.tar.gz
 Summary  : No detailed summary available
@@ -16,11 +16,11 @@ BuildRequires : fonttools
 Patch1: 0001-add-build-install-makefile-targets.patch
 
 %description
-# Fontcrunch
-By Raph Levien, Google
-This is a tool for TrueType font spline optimization - a "simplify" command.
-It tries to create a visual match for the spline using the smallest number of TrueType points.
-It is notable for counting on-curve points interpolated between two off-curve points as "free," making useful filesize savings.
+Spiro release 0.01
+4 May 2007
+Raph Levien
+This is a very rough release of the Spiro toolset that I've been using
+to create my fonts. The main program is ppedit, and there's a more
 
 %package data
 Summary: data components for the roboto package.
@@ -40,25 +40,31 @@ license components for the roboto package.
 
 %prep
 %setup -q -n roboto-2.138
+cd %{_builddir}/roboto-2.138
 %patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1550452923
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1604085491
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$FFLAGS -fno-lto "
+export FFLAGS="$FFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
 make  %{?_smp_mflags}
 
 
 %install
-export SOURCE_DATE_EPOCH=1550452923
+export SOURCE_DATE_EPOCH=1604085491
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/roboto
-cp LICENSE %{buildroot}/usr/share/package-licenses/roboto/LICENSE
-cp third_party/fontcrunch/LICENSE %{buildroot}/usr/share/package-licenses/roboto/third_party_fontcrunch_LICENSE
-cp third_party/spiro/LICENSE %{buildroot}/usr/share/package-licenses/roboto/third_party_spiro_LICENSE
-cp third_party/spiro/ppedit/gpl.txt %{buildroot}/usr/share/package-licenses/roboto/third_party_spiro_ppedit_gpl.txt
+cp %{_builddir}/roboto-2.138/LICENSE %{buildroot}/usr/share/package-licenses/roboto/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
+cp %{_builddir}/roboto-2.138/third_party/fontcrunch/LICENSE %{buildroot}/usr/share/package-licenses/roboto/a118861172e3884edbc819521f390e11bdb5fb9f
+cp %{_builddir}/roboto-2.138/third_party/spiro/LICENSE %{buildroot}/usr/share/package-licenses/roboto/06877624ea5c77efe3b7e39b0f909eda6e25a4ec
+cp %{_builddir}/roboto-2.138/third_party/spiro/ppedit/gpl.txt %{buildroot}/usr/share/package-licenses/roboto/06877624ea5c77efe3b7e39b0f909eda6e25a4ec
 %make_install
 
 %files
@@ -87,7 +93,6 @@ cp third_party/spiro/ppedit/gpl.txt %{buildroot}/usr/share/package-licenses/robo
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/roboto/LICENSE
-/usr/share/package-licenses/roboto/third_party_fontcrunch_LICENSE
-/usr/share/package-licenses/roboto/third_party_spiro_LICENSE
-/usr/share/package-licenses/roboto/third_party_spiro_ppedit_gpl.txt
+/usr/share/package-licenses/roboto/06877624ea5c77efe3b7e39b0f909eda6e25a4ec
+/usr/share/package-licenses/roboto/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
+/usr/share/package-licenses/roboto/a118861172e3884edbc819521f390e11bdb5fb9f
